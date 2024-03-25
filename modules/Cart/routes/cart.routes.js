@@ -4,8 +4,8 @@ const { Authenticated } = require('../../User/midddlewar/authentication.middlewa
 const { addToCartUsingPost, getCartItemsByGet, deleteItemUsingDelete, updateCartItemQuantityByPut } = require('../controller/cart.controller');
 const router = express.Router();
 
-router.post('/cart/add',Authenticated,addToCartUsingPost)
-router.get('/cart/items',Authenticated,getCartItemsByGet)
+router.post('/cart/add',addToCartUsingPost)
+router.get('/cart/items',getCartItemsByGet)
 router.delete('/cart/items/:cart_item_id',Authenticated,deleteItemUsingDelete)
 router.put('/cart/items/:cart_item_id',Authenticated,updateCartItemQuantityByPut)
 

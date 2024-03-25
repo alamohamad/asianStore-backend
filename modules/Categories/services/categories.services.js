@@ -12,8 +12,10 @@ const createCategory = async (category_name, img) => {
       category_name: category_name,
       img_id: file_id
     });
+    const fileData=await db('file_manager').select('new_name').where('file_id',file_id[0])
 
-    return { result: true, message: "Category added successfully." };
+
+    return { result: true, fileData,message: "Category added successfully." };
   } catch (err) {
     console.error(err); 
     return { result: false, message: err.message }; 
@@ -55,7 +57,7 @@ const categoriesCount=async()=>{
   }
 }
 
-
+ 
 
 
 

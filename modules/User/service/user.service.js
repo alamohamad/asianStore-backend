@@ -84,33 +84,55 @@ const employeesList=async()=>{
 
  
 
- const createEmployee=async(email,password,user_name)=>{
-    try{
-        const user_id=await db('users').insert({
-            email:email,
-            password:password,
-            user_name:user_name,
-            rule_id:2 //employee
+ const createEmployee = async (email, password, user_name) => {
 
+    try {
+        const joining_date = new Date(); 
+        const user_id = await db('users').insert({
+            email: email,
+            password: password,
+            user_name: user_name,
+            rule_id: 2 ,
+            joining_date: joining_date
 
         });
 
-
         await db('users_groups').insert({
-            user_id:user_id,
-            group_id:2
+            user_id: user_id,
+            group_id: 2 
+        });
 
-        })
-        return { result: true, message: "Employee added sucessfully" };
-
-    }catch(err){
-        return { result: false, message: "something wrong" };
-        
-
-
+        return {
+            result: true,
+            message: "Employee added successfully!",
+            email: email,
+            password: password,
+            user_name: user_name,
+            user_id: user_id ,
+            joining_date: joining_date
+        };
+    } catch (err) {
+        return {
+            result: false,
+            message: "Something went wrong"
+        };
     }
+};
 
 
+
+
+const usersInfo=async(user_id)=>{
+    try {
+    
+        const userInfo = await db('users').select('*').where('user_id', user_id)
+            
+        console.log(userInfo)
+        return userInfo;
+    } catch (error) {
+        console.error('Error retrieving user info:', error);
+        throw new Error('Failed to retrieve user info');
+    }
 }
 
-module.exports={signup,login,usersList,usersCount,deleteUser,employeesList,createEmployee}
+module.exports={signup,login,usersList,usersCount,deleteUser,employeesList,createEmployee,usersInfo}

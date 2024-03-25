@@ -1,6 +1,6 @@
 const express=require('express');
 const { createSignupValidation, loginValidation, createEmployeeValidation } = require('../validation/user.validation');
-const { userSignupByPost, userLoginByPost, listOfUsersByGet, usersCountByGet, deleteUserUsingDelete, listOfEmployeesByGet, createEmployeeUsingPost } = require('../controller/user.contrller');
+const { userSignupByPost, userLoginByPost, listOfUsersByGet, usersCountByGet, deleteUserUsingDelete, listOfEmployeesByGet, createEmployeeUsingPost, userInfoUsingGet } = require('../controller/user.contrller');
 const { Authenticated } = require('../midddlewar/authentication.middlewar');
 const { Autherized } = require('../midddlewar/autherization.middlewar');
 const router=express.Router();
@@ -17,6 +17,7 @@ router.post('/users',Authenticated,Autherized('manage_users'))
 
 router.get('/users/employees',Authenticated,Autherized('manage_users'),listOfEmployeesByGet)
 router.post('/users/employees',Authenticated,Autherized('manage_users'),createEmployeeValidation,createEmployeeUsingPost)
+router.get('/users/userInfo',Authenticated,userInfoUsingGet)
 
 
 

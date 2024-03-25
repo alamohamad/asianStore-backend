@@ -27,6 +27,7 @@ const getCartItemsByGet = async (req, res) => {
         for (const item of cartItems) {
             const image_name = await getImageNameById(item.img_id); 
 
+
             if (image_name) {
                 item.image_name = image_name;
             }

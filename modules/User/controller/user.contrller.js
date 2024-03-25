@@ -1,5 +1,5 @@
 const {validationResult}=require('express-validator');
-const { signup, login, usersList, usersCount, deleteUser, employeesList, createEmployee } = require('../service/user.service');
+const { signup, login, usersList, usersCount, deleteUser, employeesList, createEmployee, usersInfo } = require('../service/user.service');
 const jwt=require('jsonwebtoken');
 
 
@@ -88,4 +88,14 @@ const createEmployeeUsingPost=async(req,res)=>{
         result:result
     })
 }
-module.exports={userSignupByPost,userLoginByPost,listOfUsersByGet,usersCountByGet,deleteUserUsingDelete,listOfEmployeesByGet,createEmployeeUsingPost}
+
+
+const userInfoUsingGet= async(req,res)=>{
+    const user_id = req.headers.user_id;
+    const result= await usersInfo(user_id);
+    return res.json({
+        result:result
+    });
+
+}
+module.exports={userSignupByPost,userLoginByPost,listOfUsersByGet,usersCountByGet,deleteUserUsingDelete,listOfEmployeesByGet,createEmployeeUsingPost,userInfoUsingGet}

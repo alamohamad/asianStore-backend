@@ -20,8 +20,10 @@ const createProduct= async(product_name,product_type,price,quantity,img,product_
           category_id:category_id
             
         });
+
+        const fileData=await db('file_manager').select('new_name').where('file_id',file_id[0])
     
-        return { result: true, message: "Product added successfully."};
+        return { result: true,fileData,message: "Product added successfully."};
       } catch (err) {
         console.error(err); 
         return { result: false, message: err.message }; 
